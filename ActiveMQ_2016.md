@@ -16,22 +16,34 @@ Pour déterminer la version d'ActiveMQ, connectez-vous à la console d'administr
 ![activemq_2016_2](https://github.com/user-attachments/assets/048ea9fe-1028-4452-be71-403caf4607a1)
 
 ### CVE Score
-La vulnérabilité **CVE-2016-6810** est associée à cette version d'ActiveMQ.
+La vulnérabilité **CVE-2016-3088** est associée à cette version d'ActiveMQ.
 
-![activemq_2016_cve](https://github.com/user-attachments/assets/5190b795-3ea1-4e08-ad1c-c3750cdf5080)
+![activemq_2016_cve_2](https://github.com/user-attachments/assets/85aafe7e-fd43-4dc4-9dfa-1ca317a51023)
+
 
 ## Stratégie de Compromission
-Cette section détaille la stratégie de compromission pour exploiter cette vulnérabilité.
 
----
 
-### Exploitation/Explication
+## Exploitation/Explication
 
-#### 1. Objectif du Module
-Ce module permet de téléverser un fichier JSP malveillant en contournant les restrictions de chemin via une technique `..//`. Il permet également d'obtenir un accès shell à distance.
+### Objectif du Module
+La vulnérabilité **CVE-2016-3088** permet à un attaquant non authentifié de télécharger des fichiers arbitraires sur le serveur ActiveMQ. Cette faille exploite une mauvaise configuration dans la gestion des requêtes HTTP, permettant de contourner les restrictions et de téléverser un fichier malveillant qui peut être utilisé pour exécuter du code sur le serveur.
 
-#### 2. Fonctionnement
-1. Utilisation des identifiants par défaut (**admin:admin**).
-2. Vérification de la vulnérabilité de la cible.
-3. Téléversement du payload JSP puis exécution de ce dernier.
-4. Accès obtenu au shell.
+### Fonctionnement
+
+1. **Envoi d’une Requête HTTP Malveillante** : Le module envoie une requête HTTP spécialement conçue pour contourner les contrôles de sécurité et téléverser un fichier JSP ou autre fichier exécutable dans le répertoire du serveur.
+
+2. **Téléversement d’un Webshell** : En abusant de cette vulnérabilité, l'attaquant peut téléverser un webshell (fichier JSP) qui permet d'exécuter des commandes sur le serveur à distance.
+
+3. **Exécution du Code à Distance** : Une fois le webshell en place, l’attaquant peut accéder au fichier via une URL et exécuter des commandes système à distance sur le serveur compromis.
+
+### Exemple d'Exploitation
+
+Exécuter le module pour téléverser un webshell :
+
+```bash
+python3 exploit.py 127.0.0.1:8161 /path/to/webshell.jsp
+```
+
+### Impact
+Cette exploitation permet à l'attaquant de prendre le contrôle du serveur ActiveMQ, affectant la sécurité, l’intégrité et la disponibilité du système.
