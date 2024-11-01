@@ -23,8 +23,8 @@ La vulnérabilité **CVE-2015-5254** est associée à cette version d'ActiveMQ.
 Cette vulnérabilité est liée à une faille de sécurité dans la console web d'administration d'Apache ActiveMQ. Elle permet à un attaquant non authentifié d'exécuter du code à distance en exploitant une mauvaise gestion des permissions, ce qui peut conduire à une compromission du système.
 
 ## Stratégie de Compromission
-Cette section détaille la stratégie de compromission pour exploiter cette vulnérabilité.
 
+[Stratégie de compromission](compromission2015)
 ---
 
 ### Exploitation/Explication
