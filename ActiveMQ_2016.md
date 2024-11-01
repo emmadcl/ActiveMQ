@@ -3,7 +3,7 @@
 ### Scan du Réseau
 Pour ActiveMQ_2016, l'adresse IP assignée est `172.19.0.1`. Voici une capture d'écran illustrant le scan du réseau :
 
-![activemq_1](https://github.com/user-attachments/assets/c065290b-f0b6-494e-bffa-7eb4c21eb14f)
+![activemq_2016_1](https://github.com/user-attachments/assets/50652424-34fc-400d-846c-2e081c43d7e2)
 
 Grâce à ce scan, nous avons identifié que le port d'intérêt pour accéder à l'interface est le **8161**. Pour accéder à la console web, utilisez le lien suivant : [http://localhost:8161](http://localhost:8161).
 
@@ -13,12 +13,12 @@ Pour déterminer la version d'ActiveMQ, connectez-vous à la console d'administr
 - **Login** : `admin`
 - **Mot de passe** : `admin`
 
-![activemq2015_2](https://github.com/user-attachments/assets/607d12b4-daab-400b-aa08-24301374fab4)
+![activemq_2016_2](https://github.com/user-attachments/assets/048ea9fe-1028-4452-be71-403caf4607a1)
 
 ### CVE Score
 La vulnérabilité **CVE-2016-6810** est associée à cette version d'ActiveMQ.
 
-
+![activemq_2016_cve](https://github.com/user-attachments/assets/5190b795-3ea1-4e08-ad1c-c3750cdf5080)
 
 ## Stratégie de Compromission
 Cette section détaille la stratégie de compromission pour exploiter cette vulnérabilité.
