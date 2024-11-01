@@ -22,17 +22,37 @@ La vulnérabilité **CVE-2022-41678** est associée à cette version d'ActiveMQ.
 ![activemq_2022_cve](https://github.com/user-attachments/assets/d5081ce1-c131-4017-86c8-a1038e8e097d)
 
 ## Stratégie de Compromission
-Cette section détaille la stratégie de compromission pour exploiter cette vulnérabilité.
 
----
+[Stratégie de compromission](compromission2022.py)
 
-### Exploitation/Explication
+## Exploitation/Explication
 
-#### 1. Objectif du Module
-Ce module permet de téléverser un fichier JSP malveillant en contournant les restrictions de chemin via une technique `..//`. Il permet également d'obtenir un accès shell à distance.
+### 1. Objectif du Module
+Le module d'exploitation vise à tirer parti de la vulnérabilité **CVE-2022-41678** présente dans Apache ActiveMQ. Cette vulnérabilité est due à une désérialisation de données non fiables, permettant à un attaquant de téléverser un fichier JSP malveillant ou de modifier la configuration du serveur pour exécuter du code arbitraire à distance. L'exploitation de cette faille peut donner accès à un shell distant sur le serveur.
 
-#### 2. Fonctionnement
-1. Utilisation des identifiants par défaut (**admin:admin**).
-2. Vérification de la vulnérabilité de la cible.
-3. Téléversement du payload JSP puis exécution de ce dernier.
-4. Accès obtenu au shell.
+### 2. Fonctionnement
+
+1. **Initialisation de la Session** :
+   - Le script initie une session HTTP avec les informations d'identification par défaut de la console ActiveMQ (`admin:admin`), et se prépare à exécuter les actions exploitant la vulnérabilité.
+
+2. **Identification du MBean** :
+   - Le module recherche les MBeans pertinents sur le serveur via l'API Jolokia. Il cible le MBean `org.apache.logging.log4j2` ou `jdk.management.jfr` (Java Flight Recorder) pour manipuler la configuration du journal de log ou le système de gestion d'enregistrement, permettant ainsi l'injection du code malveillant.
+
+3. **Injection du Payload JSP** :
+   - En fonction du MBean identifié, le script injecte un payload dans la configuration du journal (`log4j`) ou dans la configuration de l’enregistrement (`jfr`).
+   - Le payload injecté crée un fichier `shell.jsp` dans le répertoire d'administration (`/admin/shell.jsp`), permettant une exécution de commande à distance via une requête HTTP.
+
+4. **Modification et Restauration de la Configuration** :
+   - Après l'injection, le script restaure la configuration d'origine du journal ou du système de gestion d'enregistrement pour éviter une détection immédiate.
+
+5. **Execution du Payload** :
+   - Une fois le shell JSP créé, il est accessible à distance via l'URL `http://[adresse-du-serveur]:8161/admin/shell.jsp?cmd=id`.
+   - En passant une commande en tant que paramètre `cmd`, un attaquant peut exécuter des commandes système sur le serveur ActiveMQ compromis.
+
+### Exemple de Commande
+
+Le module peut être exécuté en utilisant Python avec les paramètres suivants :
+
+```bash
+python3 exploit.py -u admin -p admin http://localhost:8161
+```
