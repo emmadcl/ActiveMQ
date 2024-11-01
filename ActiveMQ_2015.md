@@ -25,7 +25,6 @@ Cette vulnérabilité est liée à une faille de sécurité dans la console web 
 ## Stratégie de Compromission
 
 [Stratégie de compromission](compromission2015)
----
 
 ### Exploitation/Explication
 
