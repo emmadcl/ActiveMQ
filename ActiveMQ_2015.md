@@ -16,11 +16,11 @@ Pour déterminer la version d'ActiveMQ, connectez-vous à la console d'administr
 ![activemq2015_2](https://github.com/user-attachments/assets/607d12b4-daab-400b-aa08-24301374fab4)
 
 ### CVE Score
-La vulnérabilité **CVE-2015-5254** est associée à cette version d'ActiveMQ.
+La vulnérabilité **CVE-2015-51830** est associée à cette version d'ActiveMQ.
 
-![activemq_2015_cve](https://github.com/user-attachments/assets/95f3fe86-f8c9-47de-ab49-00ba819c6e24)
+![Capture d’écran 2024-11-01 175751](https://github.com/user-attachments/assets/581dda2f-d540-4f85-8a0b-8f15842c2fc6)
 
-Cette vulnérabilité est liée à une faille de sécurité dans la console web d'administration d'Apache ActiveMQ. Elle permet à un attaquant non authentifié d'exécuter du code à distance en exploitant une mauvaise gestion des permissions, ce qui peut conduire à une compromission du système.
+Cette vulnérabilité est lié à une mauvaise gestion des autorisations dans la console web d'administration d'Apache ActiveMQ. En particulier, les utilisateurs non autorisés pourraient potentiellement accéder à des informations sensibles ou exécuter certaines actions de gestion sans authentification adéquate.
 
 ## Stratégie de Compromission
 
