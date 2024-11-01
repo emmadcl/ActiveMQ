@@ -46,7 +46,7 @@ Le module d'exploitation vise à tirer parti de la vulnérabilité **CVE-2022-41
    - Après l'injection, le script restaure la configuration d'origine du journal ou du système de gestion d'enregistrement pour éviter une détection immédiate.
 
 5. **Execution du Payload** :
-   - Une fois le shell JSP créé, il est accessible à distance via l'URL `http://[adresse-du-serveur]:8161/admin/shell.jsp?cmd=id`.
+   - Une fois le shell JSP créé, il est accessible à distance via l'URL `http://localhost:8161/admin/shell.jsp?cmd=id`.
    - En passant une commande en tant que paramètre `cmd`, un attaquant peut exécuter des commandes système sur le serveur ActiveMQ compromis.
 
 ### Exemple de Commande
